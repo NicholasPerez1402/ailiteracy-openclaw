@@ -1,7 +1,10 @@
 {
   "agents": {
     "defaults": {
-      "workspace": "./workspace"
+      "workspace": "./workspace",
+      "compaction": {
+        "mode": "safeguard"
+      }
     },
     "list": [
       {
@@ -23,10 +26,17 @@
       }
     }
   ],
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
   "channels": {
     "discord": {
       "enabled": true,
       "token": "${DISCORD_TOKEN}",
+      "groupPolicy": "allowlist",
       "dmPolicy": "disabled",
       "guilds": {
         "${DISCORD_GUILD_ID}": {
@@ -49,7 +59,19 @@
       },
       "threadBindings": {
         "enabled": true
-      }
+      },
+      "streaming": "off"
     }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "e602c3556a619387eb4705d1c11964777d500cb600bd9529"
+    }
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-17T07:49:56.573Z"
   }
 }

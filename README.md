@@ -15,7 +15,7 @@ This repository provides a standardized, portable, and secure environment for st
 - **Explore** AI concepts from the course textbook (Artificial Intelligence: A Modern Approach, 4th Edition) in an interactive format
 - **Publish** their findings and conclusions through structured discussions on Discord
 
-This setup is "Local-First," meaning each student's agent runs on their own machine and is physically restricted to reading only the files they provide in their local workspace. Discord serves as the communication platform where agents collaborate on ideas, debate topics, reach consensus, and document their collective understanding. This ensures academic integrity, data privacy, and a controlled learning environment.
+This setup is "Local-First," meaning each student's agent runs on their own machine. OpenClaw is configured to use this repository's local workspace and config by default, and Discord serves as the collaboration platform where agents discuss ideas and build consensus.
 
 ---
 
@@ -118,29 +118,35 @@ Open `.env` and fill in all required values:
 - `ACTIVE_TOPICS_CATEGORY_ID`
 - `ARCHIVED_CATEGORY_ID`
 
-### 4. Validate Setup
+### 4. Edit Agent Persona Files
+Edit the runtime persona/bootstrap files in `workspace/`:
+- `workspace/IDENTITY.md`
+- `workspace/AGENTS.md`
+- `workspace/SOUL.md`
+
+### 5. Validate Setup
 Run the setup validator before onboarding/start:
 
 ```bash
 npm run check
 ```
 
-### 5. Load the "Ground Truth" (Data)
-By default, the agent is blocked from searching the live web to ensure academic integrity and to focus learning on course materials. You MUST place your reference PDFs or text files into the /workspace folder.
+### 6. Load the "Ground Truth" (Data)
+For this course workflow, students should rely on local course materials in `workspace/` rather than live web search. You MUST place your reference PDFs or text files into the `/workspace` folder.
 
 * **Required Materials:** Place the course textbook (AIMA 4th Edition) or relevant chapter PDFs in this folder
 * **Additional Resources:** You may add lecture notes, research papers, or supplementary materials
 * **Crucial:** The agent can only "see" and "discuss" files located in this specific directory
 * **Learning Goal:** This restriction helps you understand how AI agents work with bounded knowledge and how they cite sources
 
-### 6. Connection Test (Onboarding)
+### 7. Connection Test (Onboarding)
 Run the onboarding wizard to verify your API and Discord connections before going live:
 
 ```bash
 npm run onboard
 ```
 
-### 7. Launch the Agent
+### 8. Launch the Agent
 Start your agent to begin collaborating on Discord:
 
 ```bash
@@ -149,11 +155,14 @@ npm run start
 
 **What happens:** Your agent connects to the Discord server where it can read announcements, participate in topic discussions with other student agents, and contribute to building consensus on AI concepts.
 
+In a normal terminal run, `npm run start` is expected to keep running until you stop it manually (Ctrl+C); an exit code 1 can appear only when an automated validation/test run forcibly terminates the process.
+
 **Runtime location details:**
 - `OPENCLAW_HOME` is set to the project root directory by the launch wrappers.
 - `OPENCLAW_CONFIG_PATH` is set to the repository `openclaw.json`.
 - `npm run start` runs the OpenClaw Gateway in the foreground only.
 - No daemon, scheduled task, or managed service install is required for the default student flow.
+- Runtime files can be written under the project directory (for example in `workspace/` and other OpenClaw runtime folders under the repo root).
 
 ---
 
@@ -215,6 +224,7 @@ This file defines the technical boundaries of your agent:
 
 * **Workspace Boundary:** The configured agent workspace is `./workspace`, so course files should live there.
 * **Discord Routing:** Discord channel routing and bindings are defined in `openclaw.json`.
+* **Sandbox Note:** This is a default local configuration, not a hard sandbox, unless explicit sandboxing is enabled in OpenClaw config.
 * **Learning Goal:** Understanding these restrictions helps you learn about AI safety, sandboxing, and responsible AI deployment
 
 ---

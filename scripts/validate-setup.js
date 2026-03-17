@@ -54,24 +54,14 @@ function parseDotEnv(content) {
 }
 
 function ensureDirectory(dirPath, errors) {
-  try {
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true });
-      console.log(`[check] Created missing directory: ${path.basename(dirPath)}/`);
-    }
-  } catch (error) {
-    errors.push(`Unable to create directory ${dirPath}: ${error.message}`);
+  if (!fs.existsSync(dirPath)) {
+    errors.push(`Missing required directory: ${path.relative(process.cwd(), dirPath)}. Run \`npm run setup\`.`);
   }
 }
 
-function ensureFile(filePath, defaultContent, errors) {
-  try {
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, defaultContent, "utf8");
-      console.log(`[check] Created missing file: ${path.relative(process.cwd(), filePath)}`);
-    }
-  } catch (error) {
-    errors.push(`Unable to create required file ${filePath}: ${error.message}`);
+function ensureFile(filePath, errors) {
+  if (!fs.existsSync(filePath)) {
+    errors.push(`Missing required file: ${path.relative(process.cwd(), filePath)}. Run \`npm run setup\` to seed defaults, then edit it.`);
   }
 }
 
@@ -120,17 +110,14 @@ function main() {
 
   ensureFile(
     path.join(workspacePath, "IDENTITY.md"),
-    "# Identity\n\nName: Carbon-Based Caleb\nEmoji: :lobster:\n",
     errors,
   );
   ensureFile(
     path.join(workspacePath, "AGENTS.md"),
-    "# AGENTS\n\nDefine your agent behavior and collaboration style here.\n",
     errors,
   );
   ensureFile(
     path.join(workspacePath, "SOUL.md"),
-    "# SOUL\n\nDefine persona, voice, and reasoning preferences here.\n",
     errors,
   );
 
