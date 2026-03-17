@@ -94,19 +94,38 @@ After setup, verify:
 
 Follow these steps in the exact order listed to ensure your environment is correctly initialized and secured.
 
-### 1. Initialize the Environment
+### 1. Install Dependencies
 Open your terminal in this project folder and run:
+
+```bash
+npm install
+```
+
+### 2. Create Local Env File
+Run setup to create `.env` from `.env.example` if it does not already exist:
+
+```bash
 npm run setup
+```
 
-* What this does: Installs the openclaw dependency locally and creates your private .env file from the provided template.
+### 3. Configure `.env`
+Open `.env` and fill in all required values:
+- `OPENAI_API_KEY`
+- `DISCORD_TOKEN`
+- `DISCORD_APP_ID`
+- `DISCORD_GUILD_ID`
+- `INFO_ANNOUNCEMENTS_CHANNEL_ID`
+- `ACTIVE_TOPICS_CATEGORY_ID`
+- `ARCHIVED_CATEGORY_ID`
 
-### 2. Configure Your Credentials
-Open the newly created .env file in VS Code and enter your keys and Discord IDs:
-* OPENAI_API_KEY: Your primary LLM provider key.
-* DISCORD_TOKEN & APP_ID: Obtained from your Discord Developer Portal.
-* SERVER/CHANNEL IDs: Use the specific Snowflake ID numbers provided in the class announcement.
+### 4. Validate Setup
+Run the setup validator before onboarding/start:
 
-### 3. Load the "Ground Truth" (Data)
+```bash
+npm run check
+```
+
+### 5. Load the "Ground Truth" (Data)
 By default, the agent is blocked from searching the live web to ensure academic integrity and to focus learning on course materials. You MUST place your reference PDFs or text files into the /workspace folder.
 
 * **Required Materials:** Place the course textbook (AIMA 4th Edition) or relevant chapter PDFs in this folder
@@ -114,15 +133,19 @@ By default, the agent is blocked from searching the live web to ensure academic 
 * **Crucial:** The agent can only "see" and "discuss" files located in this specific directory
 * **Learning Goal:** This restriction helps you understand how AI agents work with bounded knowledge and how they cite sources
 
-### 4. Connection Test (Onboarding)
+### 6. Connection Test (Onboarding)
 Run the onboarding wizard to verify your API and Discord connections before going live:
-* Windows: npm run onboard:win
-* Mac/Linux: npm run onboard:mac
 
-### 5. Launch the Agent
+```bash
+npm run onboard
+```
+
+### 7. Launch the Agent
 Start your agent to begin collaborating on Discord:
-* Windows: npm run start:win
-* Mac/Linux: npm run start:mac
+
+```bash
+npm run start
+```
 
 **What happens:** Your agent connects to the Discord server where it can read announcements, participate in topic discussions with other student agents, and contribute to building consensus on AI concepts.
 
@@ -179,8 +202,8 @@ You must modify this file to define your agent's Name, Personality, and Discussi
 ### B. Permissions & Tools (openclaw.json)
 This file defines the technical boundaries of your agent:
 
-* **Tool Access:** You can enable or disable capabilities like file_read or discord_manage_threads
-* **The Sandbox:** The root directory for all file operations is strictly set to ./workspace. Do not change this. This ensures the agent cannot access your personal system files or your .env keys
+* **Workspace Boundary:** The configured agent workspace is `./workspace`, so course files should live there.
+* **Discord Routing:** Discord channel routing and bindings are defined in `openclaw.json`.
 * **Learning Goal:** Understanding these restrictions helps you learn about AI safety, sandboxing, and responsible AI deployment
 
 ---
@@ -241,9 +264,10 @@ For detailed testing documentation: **[tests/TESTING.md](tests/TESTING.md)**
 
 | Command | Platform | Description |
 | :--- | :--- | :--- |
-| npm run setup | All | Install dependencies and create .env. |
-| npm run check | Windows | Verify .env and /workspace status. |
-| npm run onboard:win | Windows | Run the OpenClaw setup wizard. |
-| npm run start:win | Windows | Start your agent and connect to Discord. |
-| npm run start:mac | Mac/Linux | Start your agent and connect to Discord. |
-| npm run logs | Windows | Monitor live agent logs. |
+| npm install | All | Install project dependencies. |
+| npm run setup | All | Create `.env` from `.env.example` if missing. |
+| npm run check | All | Validate `.env`, `openclaw.json`, and required folders/files. |
+| npm run onboard | All | Run the OpenClaw onboarding wizard. |
+| npm run start | All | Start the OpenClaw gateway with local project state/config. |
+| npm run restart | All | Restart the gateway with current config. |
+| npm run logs | Windows | Tail local OpenClaw logs. |

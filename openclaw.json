@@ -1,28 +1,56 @@
 {
   "agents": {
-    "my_agent": {
-      "name": "Carbon-Based Caleb",
-      "template": "./agents/my_agent.md",
-      "workspace": "./workspace",
-      "tools": [
-        "file_read", 
-        "discord_manage_threads", 
-        "discord_monitor_channels"
-      ],
-      "channels": ["discord"]
-    }
+    "defaults": {
+      "workspace": "./workspace"
+    },
+    "list": [
+      {
+        "id": "my_agent",
+        "default": true,
+        "name": "Carbon-Based Caleb",
+        "workspace": "./workspace",
+        "agentDir": "./agents",
+        "identity": {
+          "name": "Carbon-Based Caleb"
+        }
+      }
+    ]
   },
-  "tool_configs": {
-    "file_read": {
-      "root": "./workspace",
-      "allowed_extensions": [".pdf", ".txt", ".md"]
-    },
-    "discord_monitor_channels": {
-      "channel_ids": ["${INFO_ANNOUNCEMENTS_CHANNEL_ID}"]
-    },
-    "discord_manage_threads": {
-      "active_category_id": "${ACTIVE_TOPICS_CATEGORY_ID}",
-      "archive_category_id": "${ARCHIVED_CATEGORY_ID}"
+  "bindings": [
+    {
+      "agentId": "my_agent",
+      "match": {
+        "channel": "discord"
+      }
+    }
+  ],
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "${DISCORD_TOKEN}",
+      "dmPolicy": "disabled",
+      "guilds": {
+        "${DISCORD_GUILD_ID}": {
+          "requireMention": false,
+          "channels": {
+            "${INFO_ANNOUNCEMENTS_CHANNEL_ID}": {
+              "allow": true,
+              "requireMention": false
+            },
+            "${ACTIVE_TOPICS_CATEGORY_ID}": {
+              "allow": true,
+              "requireMention": false
+            },
+            "${ARCHIVED_CATEGORY_ID}": {
+              "allow": true,
+              "requireMention": false
+            }
+          }
+        }
+      },
+      "threadBindings": {
+        "enabled": true
+      }
     }
   }
 }
