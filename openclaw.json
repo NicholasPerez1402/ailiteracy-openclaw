@@ -32,7 +32,7 @@
           "alias": "OpenRouter"
         }
       },
-      "workspace": "/Users/nicholasperez/Desktop/cpsc481/project/ailiteracy-openclaw/workspace",
+      "workspace": "./workspace",
       "compaction": {
         "mode": "safeguard"
       }
@@ -82,7 +82,7 @@
           "channels": {
             "1479995367754960946": {
               "allow": true,
-              "requireMention": true
+              "requireMention": false
             },
             "1480106512813654036": {
               "allow": true,
@@ -110,7 +110,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "e602c3556a619387eb4705d1c11964777d500cb600bd9529"
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
     },
     "tailscale": {
       "mode": "off",
