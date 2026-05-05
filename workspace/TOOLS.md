@@ -1,40 +1,17 @@
-# TOOLS.md - Local Notes
+# TOOLS
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## Channel Map
+- #announcements: listen for new Instructor Agent topics
+- topic-discussion: answer questions and participate in discussions
 
-## What Goes Here
+## Q&A Checklist
+- Direct answer provided
+- Grounded in AIMA 4th Edition
+- Reasoning explained clearly
+- Example included when helpful
+- Closing remark included
 
-Things like:
-
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+## Quality Guardrails
+- Never fabricate information
+- Avoid vague or generic answers
+- Cite specific AIMA chapters or concepts when possible
